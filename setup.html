@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>setup 命令 - OpenClaw 文档</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>OpenClaw 文档</h1>
+            </div>
+            <nav>
+                <div class="nav-section">
+                    <h2>入门指南</h2>
+                    <ul class="nav-links">
+                        <li><a href="index.html">什么是 OpenClaw</a></li>
+                        <li><a href="getting-started.html">快速开始</a></li>
+                        <li><a href="installation.html">安装指南</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h2>核心命令</h2>
+                    <ul class="nav-links">
+                        <li><a href="gateway.html">gateway</a></li>
+                        <li><a href="config.html">config</a></li>
+                        <li><a href="setup.html" class="active">setup</a></li>
+                        <li><a href="message.html">message</a></li>
+                        <li><a href="channels.html">channels</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h2>高级功能</h2>
+                    <ul class="nav-links">
+                        <li><a href="agents.html">agents</a></li>
+                        <li><a href="cron.html">cron</a></li>
+                        <li><a href="browser.html">browser</a></li>
+                        <li><a href="skills.html">skills</a></li>
+                        <li><a href="models.html">models</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h2>系统管理</h2>
+                    <ul class="nav-links">
+                        <li><a href="status.html">status</a></li>
+                        <li><a href="health.html">health</a></li>
+                        <li><a href="logs.html">logs</a></li>
+                        <li><a href="security.html">security</a></li>
+                        <li><a href="update.html">update</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <div class="header">
+                <h1>setup 命令</h1>
+                <p>交互式设置向导，用于初始化本地配置和代理工作区</p>
+            </div>
+
+            <div class="content-section">
+                <h2>命令概述</h2>
+                <p><code>setup</code> 命令是 OpenClaw 的主要初始化工具。它提供了一个交互式的向导，帮助用户完成以下配置：</p>
+                <ul>
+                    <li>消息渠道连接（Telegram、WhatsApp、Feishu、Discord 等）</li>
+                    <li>Gateway 服务配置</li>
+                    <li>AI 模型选择和 API 密钥</li>
+                    <li>工作区目录设置</li>
+                    <li>安全选项和权限配置</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2>基本用法</h2>
+                <pre><code># 启动交互式设置向导
+openclaw setup
+
+# 使用特定配置文件
+openclaw --profile mybot setup
+
+# 开发模式设置
+openclaw --dev setup</code></pre>
+            </div>
+
+            <div class="content-section">
+                <h2>设置向导流程</h2>
+                <p>设置向导通常包含以下步骤：</p>
+                
+                <ol>
+                    <li><strong>欢迎界面</strong>: 介绍 OpenClaw 功能和设置选项</li>
+                    <li><strong>工作区配置</strong>: 选择或创建工作区目录</li>
+                    <li><strong>消息渠道选择</strong>: 选择要连接的消息平台</li>
+                    <li><strong>渠道认证</strong>: 提供必要的 API 凭证或扫描 QR 码</li>
+                    <li><strong>AI 模型配置</strong>: 选择默认模型和提供 API 密钥</li>
+                    <li><strong>Gateway 设置</strong>: 配置 WebSocket 服务端口和安全选项</li>
+                    <li><strong>测试连接</strong>: 验证所有配置是否正常工作</li>
+                    <li><strong>完成设置</strong>: 保存配置并提供后续使用指导</li>
+                </ol>
+            </div>
+
+            <div class="content-section">
+                <h2>消息渠道配置详情</h2>
+                
+                <h3>Telegram</h3>
+                <p>需要通过 <a href="https://t.me/BotFather" target="_blank">@BotFather</a> 创建 bot 并获取 token：</p>
+                <pre><code>1. 在 Telegram 中搜索 @BotFather
+2. 发送 /newbot 命令
+3. 按照提示设置 bot 名称和用户名
+4. 复制生成的 token（格式：123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ）
+5. 在 setup 向导中粘贴 token</code></pre>
+
+                <h3>WhatsApp</h3>
+                <p>支持个人 WhatsApp Web 连接：</p>
+                <pre><code>1. 在 setup 向导中选择 WhatsApp
+2. 系统会显示 QR 码
+3. 在手机 WhatsApp 中：设置 → WhatsApp Web/Desktop → 扫描 QR 码
+4. 连接成功后，bot 将在您的个人 WhatsApp 中可用</code></pre>
+
+                <h3>Feishu</h3>
+                <p>需要企业应用凭证：</p>
+                <pre><code>1. 登录 Feishu 开发者后台
+2. 创建企业自建应用
+3. 获取 App ID 和 App Secret
+4. 在 setup 向导中输入这些凭证
+5. 配置应用权限（消息发送、群组管理等）</code></pre>
+
+                <h3>Discord</h3>
+                <p>需要 Discord Bot Token：</p>
+                <pre><code>1. 访问 Discord Developer Portal
+2. 创建新应用
+3. 在 Bot 选项中添加 Bot
+4. 复制 Token
+5. 在 setup 向导中粘贴 Token
+6. 邀请 Bot 到服务器（提供 OAuth2 URL）</code></pre>
+            </div>
+
+            <div class="content-section">
+                <h2>AI 模型配置</h2>
+                <p>setup 向导支持配置多种 AI 模型提供商：</p>
+                
+                <ul>
+                    <li><strong>OpenRouter</strong>: 聚合多个模型提供商，推荐使用 <code>openrouter/auto</code></li>
+                    <li><strong>OpenAI</strong>: GPT-3.5, GPT-4 系列模型</li>
+                    <li><strong>Anthropic</strong>: Claude 系列模型</li>
+                    <li><strong>Google</strong>: Gemini 系列模型</li>
+                    <li><strong>本地模型</strong>: 通过 Ollama 或 LM Studio 运行的本地模型</li>
+                </ul>
+
+                <div class="examples">
+                    <h3>API 密钥安全</h3>
+                    <p>setup 向导会将 API 密钥安全地存储在配置文件中，并建议使用环境变量进行额外保护：</p>
+                    <pre><code># 推荐的安全做法
+export OPENAI_API_KEY="your-api-key"
+export ANTHROPIC_API_KEY="your-api-key"
+openclaw setup</code></pre>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>高级选项</h2>
+                
+                <h3>多配置文件</h3>
+                <p>可以为不同的用途创建多个配置文件：</p>
+                <pre><code># 工作用途的配置
+openclaw --profile work setup
+
+# 个人用途的配置  
+openclaw --profile personal setup
+
+# 切换配置文件使用
+openclaw --profile work gateway start</code></pre>
+
+                <h3>开发模式</h3>
+                <p>使用 <code>--dev</code> 标志进行开发测试：</p>
+                <pre><code># 开发模式会：
+# - 使用 ~/.openclaw-dev 目录
+# - Gateway 端口设为 19001
+# - 不影响生产配置
+openclaw --dev setup</code></pre>
+            </div>
+
+            <div class="content-section">
+                <h2>故障排除</h2>
+                
+                <div class="warning">
+                    <h3>常见问题</h3>
+                    <ul>
+                        <li><strong>网络连接问题</strong>: 确保可以访问相应的 API 端点</li>
+                        <li><strong>权限错误</strong>: 检查工作区目录的写权限</li>
+                        <li><strong>API 凭证无效</strong>: 重新检查 token 或密钥是否正确</li>
+                        <li><strong>内存不足</strong>: 确保系统有足够内存（至少 2GB）</li>
+                    </ul>
+                </div>
+
+                <p>如果 setup 过程中断，可以重新运行命令继续配置。已保存的配置不会丢失。</p>
+            </div>
+
+            <div class="footer">
+                <p>© 2026 OpenClaw 文档 | <a href="https://docs.openclaw.ai" target="_blank">官方文档</a></p>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

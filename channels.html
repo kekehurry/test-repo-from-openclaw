@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>channels 命令 - OpenClaw 文档</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>OpenClaw 文档</h1>
+            </div>
+            <nav>
+                <div class="nav-section">
+                    <h2>入门指南</h2>
+                    <ul class="nav-links">
+                        <li><a href="index.html">什么是 OpenClaw</a></li>
+                        <li><a href="getting-started.html">快速开始</a></li>
+                        <li><a href="installation.html">安装指南</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h2>核心命令</h2>
+                    <ul class="nav-links">
+                        <li><a href="gateway.html">gateway</a></li>
+                        <li><a href="config.html">config</a></li>
+                        <li><a href="setup.html">setup</a></li>
+                        <li><a href="message.html">message</a></li>
+                        <li><a href="channels.html" class="active">channels</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h2>高级功能</h2>
+                    <ul class="nav-links">
+                        <li><a href="agents.html">agents</a></li>
+                        <li><a href="cron.html">cron</a></li>
+                        <li><a href="browser.html">browser</a></li>
+                        <li><a href="skills.html">skills</a></li>
+                        <li><a href="models.html">models</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h2>系统管理</h2>
+                    <ul class="nav-links">
+                        <li><a href="status.html">status</a></li>
+                        <li><a href="health.html">health</a></li>
+                        <li><a href="logs.html">logs</a></li>
+                        <li><a href="security.html">security</a></li>
+                        <li><a href="update.html">update</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <div class="header">
+                <h1>channels 命令</h1>
+                <p>管理已连接的聊天渠道，包括配置、状态检查和故障排除</p>
+            </div>
+
+            <div class="content-section">
+                <h2>命令概述</h2>
+                <p><code>channels</code> 命令用于管理 OpenClaw 支持的各种消息渠道。您可以使用它来添加、删除、配置和监控不同渠道的连接状态。</p>
+                
+                <div class="examples">
+                    <h3>支持的渠道</h3>
+                    <ul>
+                        <li><strong>Telegram</strong> - 通过 Bot API 连接</li>
+                        <li><strong>WhatsApp</strong> - 通过 WhatsApp Web 连接</li>
+                        <li><strong>Feishu</strong> - 通过企业应用 API 连接</li>
+                        <li><strong>Discord</strong> - 通过 Bot API 连接</li>
+                        <li><strong>Slack</strong> - 通过 Incoming Webhooks 或 Bot Token</li>
+                        <li><strong>Signal</strong> - 通过 Signal CLI 集成</li>
+                        <li><strong>iMessage</strong> - 通过 macOS 系统集成</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>子命令</h2>
+                
+                <ul class="command-list">
+                    <li><code>channels list</code> - 列出所有已配置的渠道</li>
+                    <li><code>channels status</code> - 显示渠道连接状态</li>
+                    <li><code>channels add &lt;type&gt;</code> - 添加新渠道</li>
+                    <li><code>channels remove &lt;name&gt;</code> - 移除渠道</li>
+                    <li><code>channels login &lt;type&gt;</code> - 登录特定渠道</li>
+                    <li><code>channels logout &lt;name&gt;</code> - 退出渠道</li>
+                    <li><code>channels test &lt;name&gt;</code> - 测试渠道连接</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2>渠道配置详解</h2>
+                
+                <h3>Telegram</h3>
+                <pre><code># 添加 Telegram 渠道
+openclaw channels add telegram
+
+# 或直接登录（会提示输入 Bot Token）
+openclaw channels login telegram
+
+# 配置要求：
+# - Bot Token (通过 @BotFather 获取)
+# - 可选：Webhook URL（用于接收消息）</code></pre>
+
+                <h3>WhatsApp</h3>
+                <pre><code># 添加 WhatsApp 渠道
+openclaw channels add whatsapp
+
+# 登录 WhatsApp（会显示 QR 码）
+openclaw channels login whatsapp --verbose
+
+# 配置要求：
+# - 手机号码（用于 WhatsApp 账户）
+# - 扫描 QR 码完成认证</code></pre>
+
+                <h3>Feishu</h3>
+                <pre><code># 添加 Feishu 渠道
+openclaw channels add feishu
+
+# 配置 Feishu 应用
+openclaw channels login feishu
+
+# 配置要求：
+# - App ID
+# - App Secret  
+# - Verification Token
+# - Encrypt Key（可选）</code></pre>
+            </div>
+
+            <div class="content-section">
+                <h2>状态监控</h2>
+                <p>使用 <code>channels status</code> 命令可以查看所有渠道的实时状态：</p>
+                
+                <pre><code>$ openclaw channels status
+┌────────────┬──────────┬──────────────┬─────────────┐
+│ Channel    │ Status   │ Last Seen    │ Messages    │
+├────────────┼──────────┼──────────────┼─────────────┤
+│ telegram   │ ✅ Online │ 2 min ago    │ 1,247       │
+│ whatsapp   │ ✅ Online │ 5 min ago    │ 892         │
+│ feishu     │ ⚠️  Error  │ 1 hour ago   │ 345         │
+│ discord    │ ✅ Online │ 30 sec ago   │ 2,103       │
+└────────────┴──────────┴──────────────┴─────────────┘</code></pre>
+
+                <div class="warning">
+                    <h3>状态说明</h3>
+                    <ul>
+                        <li><strong>✅ Online</strong>: 渠道正常连接</li>
+                        <li><strong>⚠️ Error</strong>: 渠道连接有问题</li>
+                        <li><strong>❌ Offline</strong>: 渠道已断开</li>
+                        <li><strong>🔄 Connecting</strong>: 正在连接中</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>故障排除</h2>
+                
+                <h3>常见问题</h3>
+                <ul>
+                    <li><strong>渠道无法连接</strong>: 检查 API 凭证是否正确，网络是否通畅</li>
+                    <li><strong>消息接收延迟</strong>: 检查服务器负载和网络带宽</li>
+                    <li><strong>权限错误</strong>: 确保 Bot 在群组中有相应权限</li>
+                    <li><strong>速率限制</strong>: 避免触发平台的反垃圾邮件机制</li>
+                </ul>
+
+                <h3>调试命令</h3>
+                <pre><code># 详细日志输出
+openclaw channels login telegram --verbose
+
+# 测试特定渠道
+openclaw channels test telegram
+
+# 查看渠道详细信息
+openclaw channels list --json
+
+# 强制重新连接
+openclaw channels logout telegram && openclaw channels login telegram</code></pre>
+            </div>
+
+            <div class="content-section">
+                <h2>最佳实践</h2>
+                
+                <ul>
+                    <li><strong>定期监控</strong>: 使用 <code>channels status</code> 定期检查渠道健康状态</li>
+                    <li><strong>凭证安全</strong>: 不要在日志或脚本中硬编码 API 凭证</li>
+                    <li><strong>错误处理</strong>: 在自动化脚本中添加渠道状态检查</li>
+                    <li><strong>备份配置</strong>: 定期备份渠道配置以防丢失</li>
+                </ul>
+
+                <div class="examples">
+                    <h3>自动化监控脚本</h3>
+                    <pre><code>#!/bin/bash
+# 检查渠道状态并发送告警
+STATUS=$(openclaw channels status --json)
+ERRORS=$(echo "$STATUS" | jq '.channels[] | select(.status != "online")')
+
+if [ -n "$ERRORS" ]; then
+    openclaw message send \
+        --channel telegram \
+        --target @admin \
+        --message "⚠️ 渠道连接异常: $ERRORS"
+fi</code></pre>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p>© 2026 OpenClaw 文档 | <a href="https://docs.openclaw.ai" target="_blank">官方文档</a></p>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

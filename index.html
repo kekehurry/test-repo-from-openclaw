@@ -3,100 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="OpenClaw - AI助手安装指南">
-    <title>OpenClaw 安装指南</title>
-    <link rel="stylesheet" href="style.css">
+    <title>OpenClaw - 开源 AI 助手平台</title>
+    <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>🦞 OpenClaw 安装指南</h1>
-            <p>AI助手，集成到你的消息平台中</p>
-        </div>
-    </header>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>OpenClaw</h1>
+                <p>开源 AI 助手平台</p>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="installation.html">安装指南</a></li>
+                    <li><a href="getting-started.html">快速开始</a></li>
+                    <li class="nav-group">
+                        <span>核心命令</span>
+                        <ul>
+                            <li><a href="commands/gateway.html">gateway</a></li>
+                            <li><a href="commands/configure.html">configure/setup</a></li>
+                            <li><a href="commands/message.html">message</a></li>
+                            <li><a href="commands/channels.html">channels</a></li>
+                            <li><a href="commands/agents.html">agents</a></li>
+                            <li><a href="commands/models.html">models</a></li>
+                            <li><a href="commands/status.html">status</a></li>
+                            <li><a href="commands/cron.html">cron</a></li>
+                            <li><a href="commands/browser.html">browser</a></li>
+                            <li><a href="commands/nodes.html">nodes</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-group">
+                        <span>其他命令</span>
+                        <ul>
+                            <li><a href="commands/agent.html">agent</a></li>
+                            <li><a href="commands/security.html">security</a></li>
+                            <li><a href="commands/skills.html">skills</a></li>
+                            <li><a href="commands/system.html">system</a></li>
+                            <li><a href="commands/update.html">update</a></li>
+                            <li><a href="commands/all-commands.html">所有命令</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="troubleshooting.html">故障排除</a></li>
+                    <li><a href="https://docs.openclaw.ai" target="_blank">官方文档</a></li>
+                    <li><a href="https://github.com/openclaw/openclaw" target="_blank">GitHub 仓库</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="page-header">
+                <h1>OpenClaw - 开源 AI 助手平台</h1>
+            </header>
+            <div class="content">
+                <section class="hero">
+                    <h2>让 AI 助手融入你的聊天应用</h2>
+                    <p>OpenClaw 是一个开源的 AI 助手框架，可以无缝集成到各种消息平台中，包括 Telegram、WhatsApp、Feishu、Discord 等。</p>
+                    <div class="cta-buttons">
+                        <a href="installation.html" class="btn primary">开始安装</a>
+                        <a href="getting-started.html" class="btn secondary">快速入门</a>
+                    </div>
+                </section>
 
-    <main class="container">
-        <section id="what-is-openclaw">
-            <h2>什么是 OpenClaw？</h2>
-            <p>OpenClaw 是一个开源的 AI 助手，可以集成到各种消息平台（如 Telegram、WhatsApp、Feishu 等）中。它让你的 AI 助手直接在你常用的聊天应用中工作，提供无缝的体验。</p>
-        </section>
+                <section class="features">
+                    <h2>主要特性</h2>
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <h3>多平台支持</h3>
+                            <p>支持 Telegram、WhatsApp、Feishu、Discord、Slack 等主流消息平台</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>本地运行</h3>
+                            <p>完全在本地运行，保护你的隐私和数据安全</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>强大的命令系统</h3>
+                            <p>丰富的命令行工具，支持文件操作、浏览器控制、设备管理等</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>可扩展架构</h3>
+                            <p>通过插件和技能系统轻松扩展功能</p>
+                        </div>
+                    </div>
+                </section>
 
-        <section id="prerequisites">
-            <h2>安装前提条件</h2>
-            <ul>
-                <li><strong>Node.js</strong> (v18 或更高版本)</li>
-                <li><strong>npm</strong> 或 <strong>yarn</strong></li>
-                <li>支持的操作系统：Linux、macOS、Windows (WSL)</li>
-            </ul>
-        </section>
-
-        <section id="installation">
-            <h2>安装步骤</h2>
-            
-            <h3>Linux / macOS</h3>
-            <pre><code># 全局安装 OpenClaw
+                <section class="quick-start">
+                    <h2>快速开始</h2>
+                    <pre><code># 安装 OpenClaw
 npm install -g openclaw
-
-# 或使用 yarn
-yarn global add openclaw
 
 # 初始化配置
-openclaw setup</code></pre>
+openclaw setup
 
-            <h3>Windows (WSL)</h3>
-            <pre><code># 在 WSL 中安装 Node.js
-curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-sudo apt-get install -y nodejs
+# 启动服务
+openclaw gateway start</code></pre>
+                    <p>详细安装和配置指南请查看 <a href="installation.html">安装指南</a> 页面。</p>
+                </section>
 
-# 安装 OpenClaw
-npm install -g openclaw
-openclaw setup</code></pre>
-        </section>
-
-        <section id="configuration">
-            <h2>配置指南</h2>
-            <p>运行 <code>openclaw setup</code> 后，按照向导配置你的消息渠道：</p>
-            <ul>
-                <li><strong>Telegram</strong>: 需要 Bot Token</li>
-                <li><strong>WhatsApp</strong>: 需要扫描 QR 码连接</li>
-                <li><strong>Feishu</strong>: 需要应用凭证</li>
-                <li><strong>Discord</strong>: 需要 Bot Token</li>
-            </ul>
-        </section>
-
-        <section id="usage">
-            <h2>基本使用示例</h2>
-            <pre><code># 启动 OpenClaw
-openclaw gateway start
-
-# 查看状态
-openclaw status
-
-# 发送测试消息
-openclaw message send --target your-chat-id --message "Hello!"</code></pre>
-        </section>
-
-        <section id="troubleshooting">
-            <h2>常见问题排查</h2>
-            <h3>1. 权限错误</h3>
-            <p>如果遇到权限问题，请确保 npm 全局包目录有写权限，或使用 <code>npx openclaw</code> 代替全局安装。</p>
-            
-            <h3>2. 消息渠道连接失败</h3>
-            <p>检查网络连接和 API 凭证是否正确。运行 <code>openclaw channels status</code> 查看渠道状态。</p>
-            
-            <h3>3. 内存不足</h3>
-            <p>OpenClaw 需要至少 2GB 内存。如果内存不足，请关闭其他应用或增加系统内存。</p>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 OpenClaw. 开源项目，欢迎贡献！</p>
-            <p><a href="https://docs.openclaw.ai" target="_blank">官方文档</a> | 
-               <a href="https://github.com/openclaw/openclaw" target="_blank">GitHub</a> | 
-               <a href="https://discord.com/invite/clawd" target="_blank">社区</a></p>
-        </div>
-    </footer>
+                <section class="resources">
+                    <h2>资源链接</h2>
+                    <ul>
+                        <li><a href="https://docs.openclaw.ai" target="_blank">官方文档</a></li>
+                        <li><a href="https://github.com/openclaw/openclaw" target="_blank">GitHub 仓库</a></li>
+                        <li><a href="https://discord.com/invite/clawd" target="_blank">Discord 社区</a></li>
+                    </ul>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
