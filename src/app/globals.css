@@ -592,7 +592,6 @@ pre.line-numbers > code {
   text-decoration: underline;
 }
 
-@media (max-width: 768px) {
 .content-section h4 {
   font-size: 1.125rem;
   font-weight: 600;
