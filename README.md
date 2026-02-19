@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OpenClaw 文档网站
 
-## Getting Started
+这是一个使用 Next.js 重构的 OpenClaw 项目文档网站。OpenClaw 是一个开源的 AI 助手框架，旨在将强大的大语言模型（LLM）连接到你的日常数字工具和工作流中。
 
-First, run the development server:
+## 项目概述
+
+- 使用 Next.js App Router 架构
+- 集成 Tailwind CSS 进行样式设计
+- 支持静态导出，适用于 GitHub Pages 部署
+- 响应式设计，支持桌面和移动设备
+- 包含完整的文档导航系统
+
+## 开发
 
 ```bash
+# 安装依赖
+npm install
+
+# 启动开发服务器
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 构建和部署
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# 构建生产版本（静态导出）
+npm run build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# 本地预览生产版本
+npm start
+```
 
-## Learn More
+## GitHub Pages 部署
 
-To learn more about Next.js, take a look at the following resources:
+此项目已配置 GitHub Actions 自动部署到 GitHub Pages。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. 确保仓库设置中启用了 GitHub Pages
+2. 选择 "GitHub Actions" 作为源
+3. 推送更改到 main 分支触发部署
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+工作流配置位于 `.github/workflows/deploy.yml`。
 
-## Deploy on Vercel
+## 项目结构
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `src/app/` - 页面和布局组件
+- `src/components/` - 可复用的UI组件
+- `public/` - 静态资源
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 自定义域名
+
+CNAME 文件位于 `public/CNAME`，可根据需要修改。
