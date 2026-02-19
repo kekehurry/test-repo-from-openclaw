@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true, // Since we're using static export
   },
+  // For GitHub Pages subdirectory deployment
+  basePath: process.env.NODE_ENV === 'production' ? '/test-repo-from-openclaw' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/test-repo-from-openclaw/' : '',
   // Optional: change the output directory
   distDir: 'out',
 };
