@@ -8,7 +8,7 @@ export default function MainLayout({
   return (
     <>
       <Sidebar />
-      <main className="main-content flex-1 ml-[280px] p-10">
+      <main className="main-content">
         {children}
       </main>
     </>
