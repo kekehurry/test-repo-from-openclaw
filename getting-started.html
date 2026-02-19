@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenClaw - 入门指南</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>OpenClaw 文档</h1>
+            </div>
+            <nav>
+                <div class="nav-section">
+                    <h2>入门指南</h2>
+                    <ul class="nav-links">
+                        <li><a href="index.html">什么是 OpenClaw</a></li>
+                        <li><a href="getting-started.html" class="active">快速开始</a></li>
+                        <li><a href="installation.html">安装指南</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h2>核心命令</h2>
+                    <ul class="nav-links">
+                        <li><a href="gateway.html">gateway</a></li>
+                        <li><a href="config.html">config</a></li>
+                        <li><a href="setup.html">setup</a></li>
+                        <li><a href="message.html">message</a></li>
+                        <li><a href="channels.html">channels</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h2>高级功能</h2>
+                    <ul class="nav-links">
+                        <li><a href="agents.html">agents</a></li>
+                        <li><a href="cron.html">cron</a></li>
+                        <li><a href="browser.html">browser</a></li>
+                        <li><a href="skills.html">skills</a></li>
+                        <li><a href="models.html">models</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h2>系统管理</h2>
+                    <ul class="nav-links">
+                        <li><a href="status.html">status</a></li>
+                        <li><a href="health.html">health</a></li>
+                        <li><a href="logs.html">logs</a></li>
+                        <li><a href="security.html">security</a></li>
+                        <li><a href="update.html">update</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <div class="header">
+                <h1>入门指南</h1>
+                <p>快速开始使用 OpenClaw，从安装到第一个消息发送。</p>
+            </div>
+            
+            <div class="content-section">
+                <h2>快速开始</h2>
+                <p>OpenClaw 是一个强大的 AI 助手框架，可以让你的 AI 直接在各种消息平台中工作。以下是快速开始的步骤：</p>
+                
+                <h3>1. 安装 OpenClaw</h3>
+                <p>首先确保你已经安装了 Node.js (v18 或更高版本)，然后运行：</p>
+                <pre><code># 全局安装 OpenClaw
+npm install -g openclaw
+
+# 或使用 yarn
+yarn global add openclaw</code></pre>
+                
+                <h3>2. 初始化配置</h3>
+                <p>运行设置向导来配置你的消息渠道：</p>
+                <pre><code>openclaw setup</code></pre>
+                <p>这个向导会引导你配置 Telegram、WhatsApp、Feishu、Discord 等消息渠道。</p>
+                
+                <h3>3. 启动 Gateway 服务</h3>
+                <p>Gateway 是 OpenClaw 的核心服务，负责处理所有消息和命令：</p>
+                <pre><code>openclaw gateway start</code></pre>
+                
+                <h3>4. 发送第一个消息</h3>
+                <p>现在你可以通过 OpenClaw 发送消息了：</p>
+                <pre><code># 发送到 Telegram
+openclaw message send --channel telegram --target @yourusername --message "Hello from OpenClaw!"
+
+# 发送到 WhatsApp
+openclaw message send --channel whatsapp --target +1234567890 --message "Hello from OpenClaw!"</code></pre>
+                
+                <div class="examples">
+                    <h3>实际示例</h3>
+                    <p>以下是一个完整的流程示例：</p>
+                    <pre><code># 1. 安装
+npm install -g openclaw
+
+# 2. 配置（按照向导提示）
+openclaw setup
+
+# 3. 启动服务
+openclaw gateway start
+
+# 4. 检查状态
+openclaw status
+
+# 5. 发送测试消息
+openclaw message send --target your-chat-id --message "OpenClaw is working!"</code></pre>
+                </div>
+                
+                <h2>基本概念</h2>
+                <p>在深入使用之前，了解一些基本概念很重要：</p>
+                
+                <h3>Gateway</h3>
+                <p>Gateway 是 OpenClaw 的核心服务，它作为一个 WebSocket 服务器运行，处理所有的消息路由、命令执行和状态管理。</p>
+                
+                <h3>Agent</h3>
+                <p>Agent 是实际的 AI 助手，它接收消息、处理请求并生成回复。你可以有多个不同的 Agent 配置。</p>
+                
+                <h3>Channels</h3>
+                <p>Channels 是消息平台的连接器，如 Telegram、WhatsApp、Feishu 等。每个 Channel 负责与特定平台的通信。</p>
+                
+                <h3>Skills</h3>
+                <p>Skills 是扩展功能模块，为 Agent 提供特定的能力，如文件操作、网络搜索、系统控制等。</p>
+                
+                <div class="warning">
+                    <h3>重要提示</h3>
+                    <p>首次使用时，请确保你的系统满足以下要求：</p>
+                    <ul>
+                        <li>Node.js v18 或更高版本</li>
+                        <li>至少 2GB 可用内存</li>
+                        <li>稳定的网络连接（用于消息平台认证）</li>
+                        <li>适当的防火墙设置（允许 WebSocket 连接）</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <p>OpenClaw 文档 • <a href="https://docs.openclaw.ai" target="_blank">官方文档</a> • <a href="https://github.com/openclaw/openclaw" target="_blank">GitHub 仓库</a></p>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

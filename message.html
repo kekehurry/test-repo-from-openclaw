@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>message 命令 - OpenClaw 文档</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>OpenClaw 文档</h1>
+            </div>
+            <nav>
+                <div class="nav-section">
+                    <h2>入门指南</h2>
+                    <ul class="nav-links">
+                        <li><a href="index.html">什么是 OpenClaw</a></li>
+                        <li><a href="getting-started.html">快速开始</a></li>
+                        <li><a href="installation.html">安装指南</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h2>核心命令</h2>
+                    <ul class="nav-links">
+                        <li><a href="gateway.html">gateway</a></li>
+                        <li><a href="config.html">config</a></li>
+                        <li><a href="setup.html">setup</a></li>
+                        <li><a href="message.html" class="active">message</a></li>
+                        <li><a href="channels.html">channels</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h2>高级功能</h2>
+                    <ul class="nav-links">
+                        <li><a href="agents.html">agents</a></li>
+                        <li><a href="cron.html">cron</a></li>
+                        <li><a href="browser.html">browser</a></li>
+                        <li><a href="skills.html">skills</a></li>
+                        <li><a href="models.html">models</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h2>系统管理</h2>
+                    <ul class="nav-links">
+                        <li><a href="status.html">status</a></li>
+                        <li><a href="health.html">health</a></li>
+                        <li><a href="logs.html">logs</a></li>
+                        <li><a href="security.html">security</a></li>
+                        <li><a href="update.html">update</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <div class="header">
+                <h1>message 命令</h1>
+                <p>发送、读取和管理消息的核心工具，支持多渠道消息操作</p>
+            </div>
+
+            <div class="content-section">
+                <h2>命令概述</h2>
+                <p><code>message</code> 命令是 OpenClaw 最核心的功能之一，它允许您通过已配置的消息渠道发送、接收和管理消息。无论是自动化通知、聊天机器人还是消息桥接，都离不开这个命令。</p>
+                
+                <div class="examples">
+                    <h3>基本语法</h3>
+                    <pre><code>openclaw message [action] [options]</code></pre>
+                    <p>其中 <code>action</code> 可以是 <code>send</code>、<code>read</code>、<code>list</code> 等操作。</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>主要子命令</h2>
+                
+                <h3>send - 发送消息</h3>
+                <p>向指定目标发送消息，支持文本、图片、文件等多种格式。</p>
+                
+                <h3>read - 读取消息</h3>
+                <p>读取特定对话或频道的消息历史。</p>
+                
+                <h3>list - 列出对话</h3>
+                <p>列出所有可用的对话、群组或频道。</p>
+                
+                <h3>delete - 删除消息</h3>
+                <p>删除指定的消息（需要相应权限）。</p>
+            </div>
+
+            <div class="content-section">
+                <h2>发送消息详解</h2>
+                <p><code>message send</code> 是最常用的子命令，支持丰富的选项：</p>
+                
+                <h3>基本参数</h3>
+                <ul class="command-list">
+                    <li><code>--target &lt;id&gt;</code> - 消息接收者 ID（用户、群组或频道）</li>
+                    <li><code>--message &lt;text&gt;</code> - 要发送的消息内容</li>
+                    <li><code>--channel &lt;name&gt;</code> - 指定消息渠道（telegram、whatsapp、feishu 等）</li>
+                    <li><code>--reply-to &lt;id&gt;</code> - 回复特定消息 ID</li>
+                </ul>
+
+                <h3>高级参数</h3>
+                <ul class="command-list">
+                    <li><code>--media &lt;path/url&gt;</code> - 附加媒体文件（图片、视频、音频）</li>
+                    <li><code>--file &lt;path&gt;</code> - 附加文件</li>
+                    <li><code>--silent</code> - 静默发送（不触发通知）</li>
+                    <li><code>--json</code> - 输出 JSON 格式的结果</li>
+                    <li><code>--deliver</code> - 立即发送（绕过队列）</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2>使用示例</h2>
+                
+                <h3>基本消息发送</h3>
+                <pre><code># 向 Telegram 用户发送消息
+openclaw message send --channel telegram --target @username --message "Hello!"
+
+# 向 WhatsApp 联系人发送消息
+openclaw message send --channel whatsapp --target +1234567890 --message "Hi there!"
+
+# 向 Feishu 群组发送消息
+openclaw message send --channel feishu --target chat-123456 --message "会议提醒"</code></pre>
+
+                <h3>带附件的消息</h3>
+                <pre><code># 发送带图片的消息
+openclaw message send --target @username --message "查看这张图片" --media /path/to/image.jpg
+
+# 发送文件
+openclaw message send --target @username --message "请查收附件" --file /path/to/document.pdf
+
+# 发送网络图片
+openclaw message send --target @username --message "来自网络的图片" --media https://example.com/image.png</code></pre>
+
+                <h3>高级用法</h3>
+                <pre><code># 静默发送（不触发通知）
+openclaw message send --target @username --message "静默消息" --silent
+
+# 回复特定消息
+openclaw message send --target @username --message "回复内容" --reply-to msg-123456
+
+# 获取 JSON 格式响应
+openclaw message send --target @username --message "测试" --json</code></pre>
+            </div>
+
+            <div class="content-section">
+                <h2>渠道特定功能</h2>
+                
+                <h3>Telegram</h3>
+                <ul>
+                    <li>支持 Markdown 和 HTML 格式化</li>
+                    <li>支持内联键盘和回调按钮</li>
+                    <li>支持频道、群组和个人聊天</li>
+                </ul>
+
+                <h3>WhatsApp</h3>
+                <ul>
+                    <li>支持富媒体消息（图片、视频、文档）</li>
+                    <li>支持状态更新和广播列表</li>
+                    <li>支持企业账户功能</li>
+                </ul>
+
+                <h3>Feishu</h3>
+                <ul>
+                    <li>支持富文本卡片消息</li>
+                    <li>支持应用内交互和审批流</li>
+                    <li>支持企业组织架构集成</li>
+                </ul>
+
+                <h3>Discord</h3>
+                <ul>
+                    <li>支持嵌入式消息（Embeds）</li>
+                    <li>支持角色提及和频道跳转</li>
+                    <li>支持语音频道状态</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2>自动化脚本示例</h3>
+                <p>以下是在 shell 脚本中使用 message 命令的示例：</p>
+                
+                <pre><code>#!/bin/bash
+# 监控脚本 - 系统资源告警
+CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | awk '{print $2}' | cut -d'%' -f1)
+
+if (( $(echo "$CPU_USAGE > 80" | bc -l) )); then
+    openclaw message send \
+        --channel telegram \
+        --target @admin_user \
+        --message "⚠️ CPU 使用率过高: ${CPU_USAGE}%"
+fi</code></pre>
+
+                <pre><code>#!/bin/bash
+# 备份完成通知
+BACKUP_STATUS=$1
+if [ "$BACKUP_STATUS" = "success" ]; then
+    openclaw message send \
+        --channel feishu \
+        --target chat-backup-alerts \
+        --message "✅ 数据备份完成 - $(date)"
+else
+    openclaw message send \
+        --channel feishu \
+        --target chat-backup-alerts \
+        --message "❌ 数据备份失败 - $(date)"
+fi</code></pre>
+            </div>
+
+            <div class="content-section">
+                <h2>故障排除</h2>
+                
+                <div class="warning">
+                    <h3>常见问题</h3>
+                    <ul>
+                        <li><strong>消息发送失败</strong>: 检查渠道是否已正确配置，目标 ID 是否有效</li>
+                        <li><strong>权限错误</strong>: 确保 Bot 在目标群组中有发送消息的权限</li>
+                        <li><strong>网络连接问题</strong>: 检查网络连接和防火墙设置</li>
+                        <li><strong>速率限制</strong>: 避免短时间内发送大量消息，遵守各平台的速率限制</li>
+                    </ul>
+                </div>
+
+                <h3>调试命令</h3>
+                <pre><code># 查看渠道状态
+openclaw channels status
+
+# 查看详细日志
+openclaw logs --tail 100
+
+# 测试消息发送
+openclaw message send --target self --message "测试消息"</code></pre>
+            </div>
+
+            <div class="footer">
+                <p>© 2026 OpenClaw 文档 | <a href="https://docs.openclaw.ai" target="_blank">官方文档</a></p>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

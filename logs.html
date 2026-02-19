@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>logs 命令 - OpenClaw 文档</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>OpenClaw 文档</h1>
+            </div>
+            <nav>
+                <div class="nav-section">
+                    <h2>入门指南</h2>
+                    <ul class="nav-links">
+                        <li><a href="index.html">什么是 OpenClaw</a></li>
+                        <li><a href="getting-started.html">快速开始</a></li>
+                        <li><a href="installation.html">安装指南</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h2>核心命令</h2>
+                    <ul class="nav-links">
+                        <li><a href="gateway.html">gateway</a></li>
+                        <li><a href="config.html">config</a></li>
+                        <li><a href="setup.html">setup</a></li>
+                        <li><a href="message.html">message</a></li>
+                        <li><a href="channels.html">channels</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h2>高级功能</h2>
+                    <ul class="nav-links">
+                        <li><a href="agents.html">agents</a></li>
+                        <li><a href="cron.html">cron</a></li>
+                        <li><a href="browser.html">browser</a></li>
+                        <li><a href="skills.html">skills</a></li>
+                        <li><a href="models.html">models</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h2>系统管理</h2>
+                    <ul class="nav-links">
+                        <li><a href="status.html">status</a></li>
+                        <li><a href="health.html">health</a></li>
+                        <li><a href="logs.html" class="active">logs</a></li>
+                        <li><a href="security.html">security</a></li>
+                        <li><a href="update.html">update</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <div class="header">
+                <h1>logs 命令</h1>
+                <p>通过 RPC 实时查看和管理 Gateway 文件日志</p>
+            </div>
+
+            <div class="content-section">
+                <h2>命令概述</h2>
+                <p><code>logs</code> 命令提供了对 OpenClaw Gateway 服务日志的实时访问和管理功能。它通过 WebSocket RPC 连接到正在运行的 Gateway 服务，允许你查看、过滤和分析日志数据，而无需直接访问服务器文件系统。</p>
+                
+                <div class="examples">
+                    <h3>核心功能</h3>
+                    <ul>
+                        <li><strong>实时日志流</strong>: 实时查看 Gateway 服务的日志输出</li>
+                        <li><strong>日志过滤</strong>: 按时间、级别、模块等条件过滤日志</li>
+                        <li><strong>远程访问</strong>: 无需 SSH 访问即可查看日志</li>
+                        <li><strong>日志导出</strong>: 将日志导出为文件进行离线分析</li>
+                        <li><strong>性能监控</strong>: 监控系统性能和资源使用情况</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>基本用法</h2>
+                
+                <h3>实时查看日志</h3>
+                <pre><code># 实时查看所有日志
+openclaw logs
+
+# 查看最近 100 行日志
+openclaw logs --tail 100
+
+# 实时查看并跟随新日志
+openclaw logs --follow</code></pre>
+
+                <h3>时间范围过滤</h3>
+                <pre><code># 查看过去 1 小时的日志
+openclaw logs --since "1 hour ago"
+
+# 查看特定日期的日志
+openclaw logs --since "2026-02-18" --until "2026-02-19"
+
+# 查看最近 30 分钟的日志
+openclaw logs --since "30 minutes"</code></pre>
+            </div>
+
+            <div class="content-section">
+                <h2>高级过滤选项</h2>
+                
+                <h3>日志级别过滤</h3>
+                <pre><code># 只显示错误日志
+openclaw logs --level error
+
+# 显示警告及以上级别的日志
+openclaw logs --level warn
+
+# 显示信息级别日志（默认）
+openclaw logs --level info
+
+# 显示调试级别日志
+openclaw logs --level debug</code></pre>
+
+                <h3>模块/组件过滤</h3>
+                <pre><code># 只显示 Gateway 相关日志
+openclaw logs --module gateway
+
+# 只显示消息处理日志
+openclaw logs --module message
+
+# 只显示浏览器相关日志
+openclaw logs --module browser
+
+# 只显示特定渠道日志
+openclaw logs --channel telegram</code></pre>
+
+                <h3>关键词搜索</h3>
+                <pre><code># 搜索包含特定关键词的日志
+openclaw logs --grep "error"
+
+# 搜索多个关键词
+openclaw logs --grep "timeout|connection"
+
+# 忽略大小写搜索
+openclaw logs --grep -i "ERROR"</code></pre>
+            </div>
+
+            <div class="content-section">
+                <h2>日志格式和输出</h2>
+                
+                <h3>输出格式</h3>
+                <pre><code># 默认文本格式
+openclaw logs
+
+# JSON 格式输出（便于程序解析）
+openclaw logs --format json
+
+# 简洁格式（只显示消息内容）
+openclaw logs --format simple
+
+# 详细格式（包含完整元数据）
+openclaw logs --format verbose</code></pre>
+
+                <h3>导出日志到文件</h3>
+                <pre><code># 导出所有日志到文件
+openclaw logs --output /path/to/logs.txt
+
+# 导出 JSON 格式日志
+openclaw logs --format json --output /path/to/logs.json
+
+# 导出特定时间段的日志
+openclaw logs --since "1 day ago" --output daily-logs.txt</code></pre>
+            </div>
+
+            <div class="content-section">
+                <h2>性能和资源监控</h2>
+                
+                <h3>系统指标</h3>
+                <pre><code># 查看内存使用情况
+openclaw logs --metrics memory
+
+# 查看 CPU 使用情况
+openclaw logs --metrics cpu
+
+# 查看网络连接统计
+openclaw logs --metrics network
+
+# 查看所有系统指标
+openclaw logs --metrics all</code></pre>
+
+                <h3>会话统计</h3>
+                <pre><code># 查看活跃会话数量
+openclaw logs --stats sessions
+
+# 查看消息处理速率
+openclaw logs --stats messages
+
+# 查看模型 API 调用统计
+openclaw logs --stats models</code></pre>
+            </div>
+
+            <div class="content-section">
+                <h2>自动化脚本示例</h2>
+                
+                <h3>错误监控脚本</h3>
+                <pre><code>#!/bin/bash
+# 监控错误日志并发送告警
+ERROR_COUNT=$(openclaw logs --since "5 minutes" --level error --grep -c "error")
+
+if [ "$ERROR_COUNT" -gt 0 ]; then
+    openclaw message send \
+        --channel telegram \
+        --target @admin \
+        --message "🚨 检测到 $ERROR_COUNT 个错误，请检查系统日志"
+fi</code></pre>
+
+                <h3>日志轮转脚本</h3>
+                <pre><code>#!/bin/bash
+# 自动日志备份和清理
+DATE=$(date +%Y-%m-%d)
+openclaw logs --since "1 day ago" --output "/backup/logs-$DATE.txt"
+
+# 清理旧日志（保留最近7天）
+find /backup -name "logs-*.txt" -mtime +7 -delete</code></pre>
+
+                <h3>性能监控脚本</h3>
+                <pre><code>#!/bin/bash
+# 监控系统性能
+MEMORY_USAGE=$(openclaw logs --metrics memory --format simple)
+CPU_USAGE=$(openclaw logs --metrics cpu --format simple)
+
+if (( $(echo "$MEMORY_USAGE > 80" | bc -l) )); then
+    openclaw message send --target @admin --message "⚠️ 内存使用率过高: ${MEMORY_USAGE}%"
+fi
+
+if (( $(echo "$CPU_USAGE > 90" | bc -l) )); then
+    openclaw message send --target @admin --message "⚠️ CPU 使用率过高: ${CPU_USAGE}%"
+fi</code></pre>
+            </div>
+
+            <div class="content-section">
+                <h2>故障排除</h2>
+                
+                <div class="warning">
+                    <h3>常见问题</h3>
+                    <ul>
+                        <li><strong>无法连接到 Gateway</strong>: 确保 Gateway 服务正在运行 (<code>openclaw gateway status</code>)</li>
+                        <li><strong>日志为空</strong>: 检查日志级别设置，可能需要降低过滤级别</li>
+                        <li><strong>权限错误</strong>: 确保你有访问日志的权限</li>
+                        <li><strong>网络超时</strong>: 调整超时设置或检查网络连接</li>
+                    </ul>
+                </div>
+
+                <h3>调试技巧</h3>
+                <pre><code># 启用详细调试日志
+openclaw logs --level debug --module all
+
+# 检查 Gateway 连接状态
+openclaw gateway status
+
+# 查看日志配置
+openclaw config get logging</code></pre>
+            </div>
+
+            <div class="footer">
+                <p>© 2026 OpenClaw 文档 | <a href="https://docs.openclaw.ai" target="_blank">官方文档</a></p>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
